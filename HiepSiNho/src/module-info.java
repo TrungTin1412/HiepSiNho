@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author TinTrung
- *
- */
-module HiepSiNho {
-}
