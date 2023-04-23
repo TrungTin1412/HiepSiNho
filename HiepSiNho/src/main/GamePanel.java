@@ -1,4 +1,5 @@
 
+
 import javax.swing.JPanel;
 
 import java.awt.Color; 
@@ -11,14 +12,17 @@ public class GamePanel extends JPanel implements Runnable { /**
 	 */
 	private static final long serialVersionUID = 1L;
 //SCREEN SETTING
+
     final int originalTileSize = 16; //16x16 tile 
     final int scale = 3;
    
     final int tileSize = originalTileSize*scale; //new larger tile: 48x48 
     final int maxScreenCol = 24; 
     final int maxScreenRow = 16; 
+
     final int screenWidth = maxScreenCol * tileSize; 
     final int screenHeight = maxScreenRow * tileSize;
+
     
     //FPS 
     int FPS = 60;
