@@ -1,20 +1,28 @@
-package main;
 
-    import javax.swing.JPanel;
-    import javax.swing.plaf.basic.BasicComboBoxUI.KeyHandler;
 
-    import java.awt.Color; import java.awt.Dimension;
-    import java.awt.Graphics; import java.awt.Graphics2D;
+import javax.swing.JPanel;
+
+import java.awt.Color; 
+import java.awt.Dimension;
+import java.awt.Graphics; 
+import java.awt.Graphics2D;
   
-public class GamePanel extends JPanel implements Runnable { //SCREEN SETTING
+public class GamePanel extends JPanel implements Runnable { /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+//SCREEN SETTING
+
     final int originalTileSize = 16; //16x16 tile 
     final int scale = 3;
    
     final int tileSize = originalTileSize*scale; //new larger tile: 48x48 
     final int maxScreenCol = 24; 
     final int maxScreenRow = 16; 
-    final int screenWidth =    maxScreenCol   *tileSize; 
-    final int screenHeight =   maxScreenRow   *tileSize;
+
+    final int screenWidth = maxScreenCol * tileSize; 
+    final int screenHeight = maxScreenRow * tileSize;
+
     
     //FPS 
     int FPS = 60;
@@ -45,25 +53,25 @@ public class GamePanel extends JPanel implements Runnable { //SCREEN SETTING
         double drawInterval =  1000000000/FPS;//0.166666 seconds 
         double nextDrawTime = System.nanoTime() +   drawInterval; while(gameThread != null) {
     
-    //UPDATE: update new information like positions of character. 
-        update();
-    //DRAW: draw the screen with above updated information. 
-        repaint();
-        
-    try { 
-        double remainingTime = nextDrawTime - System.nanoTime(); 
-        remainingTime = remainingTime / 1000000;//Sleep method just applies time in millisecond
-    
-        if(remainingTime < 0) { 
-            remainingTime = 0; 
-        } 
-        Thread.sleep((long)remainingTime);    
-        nextDrawTime += drawInterval;
-        
-    } catch (InterruptedException e) { // TODO Auto-generated catch block
-        e.printStackTrace(); 
-        } 
-        } 
+		    //UPDATE: update new information like positions of character. 
+		        update();
+		    //DRAW: draw the screen with above updated information. 
+		        repaint();
+		        
+		    try { 
+		        double remainingTime = nextDrawTime - System.nanoTime(); 
+		        remainingTime = remainingTime / 1000000;//Sleep method just applies time in millisecond
+		    
+		        if(remainingTime < 0) { 
+		            remainingTime = 0; 
+		        } 
+		        Thread.sleep((long)remainingTime);    
+		        nextDrawTime += drawInterval;
+		        
+		    } catch (InterruptedException e) { // TODO Auto-generated catch block
+		        e.printStackTrace(); 
+		    } 
+		} 
     } 
 
     public void update() { 
