@@ -1,4 +1,4 @@
-
+package main;
 
 import javax.swing.JFrame;
 
@@ -15,4 +15,5 @@ public class Main {
     window.pack();
     window.setLocationRelativeTo(null); window.setVisible(true);
     gamePanel.startGameThread(); }
+    //TEST COMMIT!!! XIN CHAO
 }
