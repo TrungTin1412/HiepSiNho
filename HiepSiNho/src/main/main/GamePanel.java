@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable { /**
     //FPS 
     int FPS = 60;
     
-    KeyHandler keyH = new KeyHandler(); 
+    KeyHandler keyH = new KeyHandler(this); 
     Thread gameThread;
     
     //SET CHARACTER'S DEFAULT POSITION 
@@ -36,11 +36,20 @@ public class GamePanel extends JPanel implements Runnable { /**
     int characterY = 100; 
     int characterSpeed = 50;
     
+    // GAME STATE
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
+    
     public GamePanel() { 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); 
         this.setBackground(Color.black);
         this.setDoubleBuffered(true); this.addKeyListener(keyH);
         this.setFocusable(true); 
+    }
+    
+    public void setupGame() {
+    	gameState = playState;
     }
     
     public void startGameThread() { gameThread = new Thread(this);
@@ -76,15 +85,20 @@ public class GamePanel extends JPanel implements Runnable { /**
     } 
 
     public void update() { 
-        if(keyH.upPressed == true){ 
-            characterY -= characterSpeed; 
-        } else if(keyH.downPressed == true) {
-            characterY += characterSpeed; 
-        } else if(keyH.leftPressed == true) {
-            characterX -= characterSpeed; 
-        } else if(keyH.rightPressed == true) {
-            characterX += characterSpeed; 
-        } 
+    	if(gameState == playState) {
+    		if(keyH.upPressed == true){ 
+                characterY -= characterSpeed; 
+            } else if(keyH.downPressed == true) {
+                characterY += characterSpeed; 
+            } else if(keyH.leftPressed == true) {
+                characterX -= characterSpeed; 
+            } else if(keyH.rightPressed == true) {
+                characterX += characterSpeed; 
+            } 
+    	}
+        if(gameState == pauseState) {
+        	//nothing
+        }
     } 
     
     public void paintComponent(Graphics g) {
