@@ -38,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable { /**
     
     // GAME STATE
     public int gameState;
+    public int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
     
@@ -49,7 +50,8 @@ public class GamePanel extends JPanel implements Runnable { /**
     }
     
     public void setupGame() {
-    	gameState = playState;
+    	playMusic(0);
+    	gameState = titleState;
     }
     
     public void startGameThread() { gameThread = new Thread(this);
@@ -102,8 +104,32 @@ public class GamePanel extends JPanel implements Runnable { /**
     } 
     
     public void paintComponent(Graphics g) {
-    super.paintComponent(g);
-    
-    Graphics2D g2 = (Graphics2D)g; g2.setColor(Color.white);
-    g2.fillRect(characterX, characterY, tileSize, tileSize); g2.dispose(); }
+    	super.paintComponent(g);
+    	Graphics2D g2 = (Graphics2D)g;
+    	
+    	
+    	//TITLE SCREEN 
+    	if(gameState == titleState) {
+    		ui.draw(g2);
+    	}
+    	else {
+    		tileM.draw(g2);
+    		
+    		//OBJECT
+    		for(int i = 0; i < obj.length; i++) {
+    			if(obj[i] != null) {
+    				obj[i].draw(g2, this);
+    				
+    			}
+    		}
+    		
+    		//PLAYER
+    		player.draw(g2);
+    		
+    		//UI
+    		ui.draw(g2);
+    	}
+	    g2.setColor(Color.white);
+	    g2.fillRect(characterX, characterY, tileSize, tileSize); g2.dispose(); 
+    }
 }
