@@ -50,9 +50,22 @@ git pull origin [branchname]
 3. Resolve conflicts 
 4. Add commit
 5. Push data
-6. Go to Github -> Request-> Add your Review -> Approve -> Merge
-
-
+6. Go to Github -> Request-> Add your Review -> Approve -> Merge  
+  
+# Lưu ý chết người:  
+1. Trước khi code phải check brand xem mình đang ở branch nào:  
+```
+git status
+```  
+2. Nếu đang ở branch main thì back về branch cá nhân:  
+```
+git checkout [yourname]
+```
+3. Nếu lỡ làm việc trên branch main khi về branch cá nhân bị mất data local:
+```
+git merge main
+```  
+để lấy data về
 
 
 

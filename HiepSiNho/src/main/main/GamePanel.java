@@ -3,21 +3,21 @@ package main;
 
 import javax.swing.JPanel;
 
+import entity.Player;
+
 import java.awt.Color; 
 import java.awt.Dimension;
 import java.awt.Graphics; 
 import java.awt.Graphics2D;
   
-public class GamePanel extends JPanel implements Runnable { /**
-	 * 
-	 */
+public class GamePanel extends JPanel implements Runnable { 
 	private static final long serialVersionUID = 1L;
-//SCREEN SETTING
+    //SCREEN SETTING
 
     final int originalTileSize = 16; //16x16 tile 
     final int scale = 3;
    
-    final int tileSize = originalTileSize*scale; //new larger tile: 48x48 
+    public final int tileSize = originalTileSize*scale; //new larger tile: 48x48 
     final int maxScreenCol = 24; 
     final int maxScreenRow = 16; 
 
@@ -28,13 +28,15 @@ public class GamePanel extends JPanel implements Runnable { /**
     //FPS 
     int FPS = 60;
     
-    KeyHandler keyH = new KeyHandler(this); 
+    KeyHandler keyH = new KeyHandler(); 
     Thread gameThread;
+    Player player = new Player(this,keyH);
+    
     
     //SET CHARACTER'S DEFAULT POSITION 
     int characterX = 100; 
     int characterY = 100; 
-    int characterSpeed = 50;
+    int characterSpeed = 20;
     
     // GAME STATE
     public int gameState;
@@ -45,12 +47,12 @@ public class GamePanel extends JPanel implements Runnable { /**
     public GamePanel() { 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); 
         this.setBackground(Color.black);
-        this.setDoubleBuffered(true); this.addKeyListener(keyH);
+        this.setDoubleBuffered(true); 
+        this.addKeyListener(keyH);
         this.setFocusable(true); 
     }
     
     public void setupGame() {
-    	playMusic(0);
     	gameState = titleState;
     }
     
@@ -59,77 +61,43 @@ public class GamePanel extends JPanel implements Runnable { /**
     
     }
     
-    @Override 
-    // GAME LOOP// 
-    public void run() { 
-        double drawInterval =  1000000000/FPS;//0.166666 seconds 
-        double nextDrawTime = System.nanoTime() +   drawInterval; while(gameThread != null) {
-    
-		    //UPDATE: update new information like positions of character. 
-		        update();
-		    //DRAW: draw the screen with above updated information. 
-		        repaint();
-		        
-		    try { 
-		        double remainingTime = nextDrawTime - System.nanoTime(); 
-		        remainingTime = remainingTime / 1000000;//Sleep method just applies time in millisecond
-		    
-		        if(remainingTime < 0) { 
-		            remainingTime = 0; 
-		        } 
-		        Thread.sleep((long)remainingTime);    
-		        nextDrawTime += drawInterval;
-		        
-		    } catch (InterruptedException e) { // TODO Auto-generated catch block
-		        e.printStackTrace(); 
-		    } 
-		} 
-    } 
+    @Override
+    public void run() {
+        double drawInterval = 1000000000/FPS; //0.01666 seconds
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
+        long timer = 0;
+        int drawCount = 0;
+
+        while(gameThread != null){
+            currentTime = System.nanoTime();
+            delta += (currentTime - lastTime) / drawInterval;
+            timer += (currentTime - lastTime);
+            lastTime = currentTime;
+            if (delta >= 1){
+                update();
+                repaint();
+                delta--;
+                drawCount++;
+            }
+            if (timer >= 1000000000){
+                System.out.println("FPS:" + drawCount);
+                drawCount = 0;
+                timer = 0;
+            }
+        }
+    }
 
     public void update() { 
-    	if(gameState == playState) {
-    		if(keyH.upPressed == true){ 
-                characterY -= characterSpeed; 
-            } else if(keyH.downPressed == true) {
-                characterY += characterSpeed; 
-            } else if(keyH.leftPressed == true) {
-                characterX -= characterSpeed; 
-            } else if(keyH.rightPressed == true) {
-                characterX += characterSpeed; 
-            } 
-    	}
-        if(gameState == pauseState) {
-        	//nothing
-        }
+        player.update();
     } 
     
     public void paintComponent(Graphics g) {
-    	super.paintComponent(g);
-    	Graphics2D g2 = (Graphics2D)g;
-    	
-    	
-    	//TITLE SCREEN 
-    	if(gameState == titleState) {
-    		ui.draw(g2);
-    	}
-    	else {
-    		tileM.draw(g2);
-    		
-    		//OBJECT
-    		for(int i = 0; i < obj.length; i++) {
-    			if(obj[i] != null) {
-    				obj[i].draw(g2, this);
-    				
-    			}
-    		}
-    		
-    		//PLAYER
-    		player.draw(g2);
-    		
-    		//UI
-    		ui.draw(g2);
-    	}
-	    g2.setColor(Color.white);
-	    g2.fillRect(characterX, characterY, tileSize, tileSize); g2.dispose(); 
+        super.paintComponent(g);
+        
+        Graphics2D g2 = (Graphics2D)g; 
+        player.draw(g2); 
+        g2.dispose(); 
     }
 }
