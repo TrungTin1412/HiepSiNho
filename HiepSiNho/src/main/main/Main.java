@@ -1,6 +1,5 @@
 package main;
 
-
 import javax.swing.JFrame;
 
 public class Main {
@@ -9,11 +8,12 @@ public class Main {
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     window.setResizable(false); 
 
-    window.setTitle("Ninja");   
+    window.setTitle("Hiệp Sĩ Nhỏ");   
 
     GamePanel gamePanel = new GamePanel(); 
     window.add(gamePanel);
     window.pack();
     window.setLocationRelativeTo(null); window.setVisible(true);
     gamePanel.startGameThread(); }
+
 }
