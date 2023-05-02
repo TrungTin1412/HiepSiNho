@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
     //FPS 
     int FPS = 60;
     
-    KeyHandler keyH = new KeyHandler(); 
+    KeyHandler keyH = new KeyHandler(this); 
     Thread gameThread;
     Player player = new Player(this,keyH);
     
@@ -53,11 +53,12 @@ public class GamePanel extends JPanel implements Runnable {
     }
     
     public void setupGame() {
-    	gameState = titleState;
+    	gameState = playState;
     }
     
-    public void startGameThread() { gameThread = new Thread(this);
-    gameThread.start();
+    public void startGameThread() { 
+    	gameThread = new Thread(this);
+    	gameThread.start();
     
     }
     
@@ -90,7 +91,13 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() { 
+    	if(gameState == playState) {
+    		player.update();
+    	}
         player.update();
+        if(gameState == pauseState) {
+        	//nothing
+        }
     } 
     
     public void paintComponent(Graphics g) {

@@ -22,7 +22,7 @@ public class Player extends Entity{
     
     public void pickUpObject(int i) {
 		if (i != 999) {
-			
+			//delete from string object -> case chest (vid13)
 		}
 	}
     
