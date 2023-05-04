@@ -9,7 +9,8 @@ public class UI {
 	
 	GamePanel gp;
 	Graphics2D g2;
-	Font arial_40, arial_80B;
+	Font arial_40, 
+	arial_80B;
 // 	BufferedImage keyImage;
 	public int commandNum = 0;
 	public int titleScreenState = 0;
@@ -33,7 +34,6 @@ public class UI {
 		g2.setFont(arial_40);
 		g2.setColor(Color.white);
 		
-		//TITLE STATE
 		if(gp.gameState == gp.titleState) {
 			drawTitleScreen(); 
 		}

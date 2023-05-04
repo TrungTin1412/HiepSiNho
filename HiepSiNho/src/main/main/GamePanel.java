@@ -28,7 +28,11 @@ public class GamePanel extends JPanel implements Runnable {
     //FPS 
     int FPS = 60;
     
+    //SYSTEM
+    Sound music = new Sound();
+    Sound se = new Sound();
     KeyHandler keyH = new KeyHandler(this); 
+    public UI ui = new UI(this);
     Thread gameThread;
     Player player = new Player(this,keyH);
     
@@ -106,5 +110,16 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g; 
         player.draw(g2); 
         g2.dispose(); 
+    }
+    
+    public void playMusic(int i) {
+    	music.setFile(i);
+    	music.play();
+    	music.loop();
+    }
+    
+    public void playSE(int i) {
+    	se.setFile();
+    	se.play();
     }
 }
