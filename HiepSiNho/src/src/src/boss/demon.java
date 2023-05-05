@@ -1,50 +1,66 @@
 package boss;
+
 import java.util.Random;
 
 import entity.Entity;
 import main.GamePanel;
 public class demon extends Entity {
+	Gamepanel gp;
+	public static final String monName=""
 	public demon (GamePanel gp) {
 		super(gp);
-		name ="demon"
-		speed=1;
-		maxLife=20;
-		life = maxLife;
+		this.gp=gp;
 		
-		solidArea.x=
-		solidArea.y=
-		solidArea.width=
-		solidArea.height=
+		type=type_monster;
+		name ="demon" 
+		defaultSpeed=1;
+		speed=defaultSpeed;
+		maxLife=50;
+		life = maxLife;
+		attack =1;
+		defense =2;
+		
+		int size =gp.titleSize*5;
+		solidArea.x=48;
+		solidArea.y=48;
+		solidArea.width= size - 48*2;
+		solidArea.height= size - 48
 		solidAreaDefaultX=solidArea.x;
 		solidAreaDefailtY=solidArea.y;
-		
+		attackArea.width=30;
+		attackArea.height=170;
+		motion1_duration=25;
+		motion2_duration=50;
 		getImage();
+		getAttackImage();
 	}
 	public void getImage() {
-		up1 = setup("boss/demon_down1");
-		up1 = setup("boss/demon_down2");
-		down1 = setup("boss/demon_down1");
-		down1 = setup("boss/demon_down2");
-		left1 = setup("boss/demon_down1");
-		left1 = setup("boss/demon_down2");
-		right1 = setup("boss/demon_down1");
-		right1 = setup("boss/demon_down2");
+		int i=5;
+		
+		left1 = setup("boss/demon_left1",gp.titleSize*i,gp.titleSize*i);
+		left2 = setup("boss/demon_left2",gp.titleSize*i,gp.titleSize*i);
+		right1 = setup("boss/demon_right1",gp.titleSize*i,gp.titleSize*i);
+		right2 = setup("boss/demon_right2",gp.titleSize*i,gp.titleSize*i);
+		attackleft1 = setup("boss/demon-leftattack_1",gp.titleSize*i,gp.titleSize*i);
+		attackleft2 = setup("boss/demon-leftattack_2",gp.titleSize*i,gp.titleSize*i);
+		attackright1 = setup("boss/demon-rightattack_1",gp.titleSize*i,gp.titleSize*i);
+		attackright2 = setup("boss/demon-rightattack_1",gp.titleSize*i,gp.titleSize*i);
 	}
 	public void setAction() {
-		actionLockCounter ++;
-		if (actionLockCounter ==120 ) {
-			Random random = new Random ();
-			int i = random.nextInt(100) +1;
-			if (i<=25) {
-				direction ="up";
-			} if (i> 25 && i<=50) {
-				direction ="down";
-			} if (i> 50 && i<=75) {
-				direction ="left";
-			} if (i> 75 && i<=100) {
-				direction ="right";
-			}
-			actionLockCounter =0;
+		if (onPath ==true) {
+			checkStopChasingOrNot(gp.player,15,100);
+			searchPath(getGoalCol(gp.player),getGoalRow(gp.player));
+		} else {
+			checkStartChasingOrNot (gp.player,5,100);
 		}
+		if (attacking==false) {
+			checkAttackOrNot(30,gp.titleSize*4),gp.titleSize);
+		}
+	}
+	public void damageReaction () {
+		actionLockCounter=0;
+	}
+	public void checkDrop() {
+		
 	}
 }
