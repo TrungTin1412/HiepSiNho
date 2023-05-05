@@ -29,7 +29,7 @@ public class TileManager {
 		mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
 		
 		getTileImage();
-		loadMap("/respic/map/map01.txt");
+		loadMap("/map/map01.txt");
 	}
 	
 	public void getTileImage() {
@@ -37,13 +37,13 @@ public class TileManager {
 		try {
 	
 			tile[0] = new Tile();
-			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/respic/tiles/grass.png"));
+			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tile/grass.png"));
 			
 			tile[1] = new Tile();
-			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/respic/tiles/wall.png"));
+			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tile/wall.png"));
 			
 			tile[2] = new Tile();
-			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/respic/tiles/water.png"));
+			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tile/water.png"));
 			
 			
 		}catch(IOException e) {
