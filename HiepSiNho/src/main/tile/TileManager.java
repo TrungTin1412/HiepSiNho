@@ -1,12 +1,16 @@
 package tile;
 
+
+import java.io.BufferedReader;
 import java.awt.Graphics2D;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 import javax.imageio.ImageIO;
+
 import main.GamePanel;
-import java.io.IOException;
-import InputStreamReader;
-import BufferedReader;
+
 
 
 
@@ -25,7 +29,7 @@ public class TileManager {
 		mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
 		
 		getTileImage();
-		loadMap("/maps/map01.txt");
+		loadMap("/respic/map/map01.txt");
 	}
 	
 	public void getTileImage() {
@@ -33,13 +37,13 @@ public class TileManager {
 		try {
 	
 			tile[0] = new Tile();
-			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tile/grass.png"));
+			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/respic/tiles/grass.png"));
 			
 			tile[1] = new Tile();
-			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tile/wall.png"));
+			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/respic/tiles/wall.png"));
 			
 			tile[2] = new Tile();
-			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tile/water.png"));
+			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/respic/tiles/water.png"));
 			
 			
 		}catch(IOException e) {
@@ -50,8 +54,8 @@ public class TileManager {
 		
 		
 		try {
-			InputStream is = getClass().getResourceAsStream("/maps/map01.txt");
-			BufferredReader br = new BufferedReader(new InputStreamReader(is));
+			InputStream is = getClass().getResourceAsStream(filePath);
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		
 		int col = 0;
 		int row = 0;
@@ -62,9 +66,9 @@ public class TileManager {
 			
 			while(col < gp.maxScreenCol) {
 				
-				String numbers[] = line.splt(" ");
+				String numbers[] = line.split(" ");
 				
-				int num = Interger.parseInt(numbers[col]);
+				int num = Integer.parseInt(numbers[col]);
 				
 				mapTileNum[col][row] = num;
 				col++;
