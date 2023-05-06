@@ -38,12 +38,23 @@ public class GamePanel extends JPanel implements Runnable {
     int characterY = 100; 
     int characterSpeed = 20;
     
+    // GAME STATE
+    public int gameState;
+    public int titleState = 0;
+    public final int playState = 1;
+    public final int pauseState = 2;
+    
     public GamePanel() { 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); 
         this.setBackground(Color.black);
         this.setDoubleBuffered(true); 
         this.addKeyListener(keyH);
         this.setFocusable(true); 
+    }
+    
+    public void setupGame() {
+    	//playMusic(0);
+    	gameState = titleState;
     }
     
     public void startGameThread() { gameThread = new Thread(this);
@@ -89,4 +100,5 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g; 
         player.draw(g2); 
         g2.dispose(); }
+
 }
