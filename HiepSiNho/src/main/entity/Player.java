@@ -28,8 +28,8 @@ public class Player extends Entity{
         getPlayerImage();
     }
     public void setDefaultValues(){
-        worldX = 288;
-        worldY = 690;
+        x = 288;
+        y = 690;
         speed = 40;
         direction = "up";
     }
@@ -53,19 +53,32 @@ public class Player extends Entity{
         if (keyH.upPressed == true||keyH.downPressed == true||keyH.leftPressed == true|| keyH.rightPressed == true){
             if(keyH.upPressed == true){ 
                 direction = "up";
-                worldY -= speed; 
             } else if(keyH.downPressed == true) {
                 direction = "down";
-                worldY += speed; 
             } else if(keyH.leftPressed == true) {
                 direction = "left";
-                worldX -= speed; 
             } else if(keyH.rightPressed == true) {
                 direction = "right";
-                worldX += speed; 
             } 
-            // collisionOn = false;
-            // gp.cChecker.checkTile(this);
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+
+            if (collisionOn == false){
+                switch(direction){
+                    case "up":
+                        y -= speed; 
+                        break;
+                    case "down":
+                        y += speed; 
+                        break;
+                    case "left":
+                        x -= speed; 
+                        break;
+                    case "right":
+                        x += speed; 
+                        break;
+                }
+            }
 
             spriteCounter++;
             if (spriteCounter > 10){
@@ -117,6 +130,6 @@ public class Player extends Entity{
             }
             break;
         }
-        g2.drawImage(image, worldX, worldY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
     }
 }
