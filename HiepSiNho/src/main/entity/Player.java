@@ -2,6 +2,7 @@ package entity;
 
 // import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -16,12 +17,19 @@ public class Player extends Entity{
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
         this.keyH = keyH;
+
+        solidArea = new Rectangle();
+        solidArea.x = 0;
+        solidArea.y = 0;
+        solidArea.width = 48;
+        solidArea.height = 48;
+
         setDefaultValues();
         getPlayerImage();
     }
     public void setDefaultValues(){
-        x = 288;
-        y = 690;
+        worldX = 288;
+        worldY = 690;
         speed = 40;
         direction = "up";
     }
@@ -45,17 +53,20 @@ public class Player extends Entity{
         if (keyH.upPressed == true||keyH.downPressed == true||keyH.leftPressed == true|| keyH.rightPressed == true){
             if(keyH.upPressed == true){ 
                 direction = "up";
-                y -= speed; 
+                worldY -= speed; 
             } else if(keyH.downPressed == true) {
                 direction = "down";
-                y += speed; 
+                worldY += speed; 
             } else if(keyH.leftPressed == true) {
                 direction = "left";
-                x -= speed; 
+                worldX -= speed; 
             } else if(keyH.rightPressed == true) {
                 direction = "right";
-                x += speed; 
+                worldX += speed; 
             } 
+            // collisionOn = false;
+            // gp.cChecker.checkTile(this);
+
             spriteCounter++;
             if (spriteCounter > 10){
                 if (spriteNum == 1){
@@ -106,6 +117,6 @@ public class Player extends Entity{
             }
             break;
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, worldX, worldY, gp.tileSize, gp.tileSize, null);
     }
 }
