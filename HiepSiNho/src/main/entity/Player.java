@@ -28,8 +28,8 @@ public class Player extends Entity{
         getPlayerImage();
     }
     public void setDefaultValues(){
-        x = 288;
-        y = 690;
+        x = 290;
+        y = 610;
         speed = 40;
         direction = "up";
     }
