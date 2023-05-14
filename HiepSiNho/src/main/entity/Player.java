@@ -14,6 +14,7 @@ import main.KeyHandler;
 public class Player extends Entity{
     GamePanel gp;
     KeyHandler keyH;
+    int hashKey = 0;
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
         this.keyH = keyH;
@@ -21,6 +22,8 @@ public class Player extends Entity{
         solidArea = new Rectangle();
         solidArea.x = 0;
         solidArea.y = 0;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
         solidArea.width = 48;
         solidArea.height = 48;
 
@@ -60,9 +63,14 @@ public class Player extends Entity{
             } else if(keyH.rightPressed == true) {
                 direction = "right";
             } 
+            //Check tile collision
             collisionOn = false;
             gp.cChecker.checkTile(this);
+            //Check object collision
+            int objIndex = gp.cChecker.checkObject(this, true);
+            pickupObject(objIndex);
 
+            //If collsion is false, player can move
             if (collisionOn == false){
                 switch(direction){
                     case "up":
@@ -90,6 +98,14 @@ public class Player extends Entity{
                 }
                 spriteCounter = 0;
             }
+        }
+    }
+    public void pickUpObject(int i){
+        if (i != 999){
+            String objectName = gp.obj[i].name;
+            // switch(objName){
+
+            // }
         }
     }
     public void draw(Graphics2D g2){
