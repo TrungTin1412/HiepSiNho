@@ -4,6 +4,7 @@ package main;
 import javax.swing.JPanel;
 
 import entity.Player;
+import tile.TileManager;
 
 import java.awt.Color; 
 import java.awt.Dimension;
@@ -18,8 +19,8 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 3;
    
     public final int tileSize = originalTileSize*scale; //new larger tile: 48x48 
-    final int maxScreenCol = 24; 
-    final int maxScreenRow = 16; 
+    public final int maxScreenCol = 13; 
+    public final int maxScreenRow = 16; 
 
     final int screenWidth = maxScreenCol * tileSize; 
     final int screenHeight = maxScreenRow * tileSize;
@@ -28,25 +29,19 @@ public class GamePanel extends JPanel implements Runnable {
     //FPS 
     int FPS = 60;
     
-    //SYSTEM
-    Sound music = new Sound();
-    Sound se = new Sound();
+    TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler(this); 
     public UI ui = new UI(this);
-    Thread gameThread;
-    Player player = new Player(this,keyH);
+    public Player player = new Player(this,keyH);
+    Thread gameThread; 
     
     
-    //SET CHARACTER'S DEFAULT POSITION 
-    int characterX = 100; 
-    int characterY = 100; 
-    int characterSpeed = 20;
     
     // GAME STATE
-    public int gameState;
-    public int titleState = 0;
-    public final int playState = 1;
-    public final int pauseState = 2;
+    //public int gameState;
+    //public int titleState = 0;
+    //public final int playState = 1;
+    //public final int pauseState = 2;
     
     public GamePanel() { 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); 
@@ -57,7 +52,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
     
     public void setupGame() {
-    	gameState = playState;
+    	//playMusic(0);
+    	//gameState = playState;
     }
     
     public void startGameThread() { 
@@ -87,39 +83,29 @@ public class GamePanel extends JPanel implements Runnable {
                 drawCount++;
             }
             if (timer >= 1000000000){
-                System.out.println("FPS:" + drawCount);
+                //System.out.println("FPS:" + drawCount);
                 drawCount = 0;
                 timer = 0;
             }
         }
     }
 
-    public void update() { 
-    	if(gameState == playState) {
-    		player.update();
-    	}
-        player.update();
-        if(gameState == pauseState) {
-        	//nothing
-        }
+    public void update() {
+		/*
+		 * if(gameState == playState) { player.update(); } if(gameState == pauseState) {
+		 * //nothing }
+		 */
+    	player.update();
     } 
-    
+     
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D)g;
         
-        Graphics2D g2 = (Graphics2D)g; 
+        
+        tileM.draw(g2);
         player.draw(g2); 
-        g2.dispose(); 
-    }
-    
-    public void playMusic(int i) {
-    	music.setFile(i);
-    	music.play();
-    	music.loop();
-    }
-    
-    public void playSE(int i) {
-    	se.setFile();
-    	se.play();
-    }
+        ui.draw(g2);
+        g2.dispose(); }
+
 }

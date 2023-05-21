@@ -6,6 +6,8 @@ import main.GamePanel;
 
 public class Entity {
 	
+	GamePanel gp;
+	
 	public int x, y;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     public String direction;
@@ -32,6 +34,7 @@ public class Entity {
     
     
     public Entity(GamePanel gp) {
+    	this.gp = gp;
 
 	}
 }
