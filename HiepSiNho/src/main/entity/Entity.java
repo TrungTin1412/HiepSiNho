@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import main.GamePanel;
@@ -13,7 +14,9 @@ public class Entity {
     public String direction;
     public int spriteCounter = 0;
     public int spriteNum = 1;
-    public boolean alive = true;
+    public Rectangle solidArea;
+    public boolean collision = false;
+    public boolean collisionOn;
     
     
     //CHARACTER ATTRIBUTES

@@ -25,23 +25,29 @@ public class GamePanel extends JPanel implements Runnable {
     final int screenWidth = maxScreenCol * tileSize; 
     final int screenHeight = maxScreenRow * tileSize;
 
+    // public final int maxWorldCol = 13;
+    // public final int maxWorldRow = 16;
+    // public final int worldWidth = tileSize * maxWorldCol;
+    // public final int worldHeight = tileSize * maxWorldRow;
     
     //FPS 
     int FPS = 60;
     
     TileManager tileM = new TileManager(this);
+
     KeyHandler keyH = new KeyHandler(this); 
     public UI ui = new UI(this);
-    public Player player = new Player(this,keyH);
-    Thread gameThread; 
+    Thread gameThread;
+    public CollisionChecker cChecker = new CollisionChecker(this);
+    Player player = new Player(this,keyH);
     
     
     
     // GAME STATE
-    //public int gameState;
-    //public int titleState = 0;
-    //public final int playState = 1;
-    //public final int pauseState = 2;
+    public int gameState;
+    public final int titleState = 0;
+    public final int playState = 1;
+    public final int pauseState = 2;
     
     public GamePanel() { 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); 
@@ -53,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
     
     public void setupGame() {
     	//playMusic(0);
-    	//gameState = playState;
+    	gameState = titleState;
     }
     
     public void startGameThread() { 
@@ -91,21 +97,34 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-		/*
-		 * if(gameState == playState) { player.update(); } if(gameState == pauseState) {
-		 * //nothing }
-		 */
-    	player.update();
+		
+		  if(gameState == playState) { 
+			  player.update(); 
+		  } 
+		  if(gameState == pauseState) {
+		  //nothing
+		  }
+		  
     } 
      
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         
+        //TITLE SCREEN
+        if(gameState == titleState) {
+        	ui.draw(g2);
+        }
         
-        tileM.draw(g2);
-        player.draw(g2); 
-        ui.draw(g2);
+        //OTHER
+        else {
+            //TILE
+            tileM.draw(g2);
+            //PLAYER
+            player.draw(g2);
+            //UI
+            ui.draw(g2);
+        }
         g2.dispose(); }
 
 }
