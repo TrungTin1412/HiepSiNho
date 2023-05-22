@@ -12,9 +12,12 @@ import main.GamePanel;
 import main.KeyHandler;
 
 public class Player extends Entity{
+	
     GamePanel gp;
     KeyHandler keyH;
+    
     public Player(GamePanel gp, KeyHandler keyH){
+    	super(gp);
         this.gp = gp;
         this.keyH = keyH;
 
@@ -27,6 +30,13 @@ public class Player extends Entity{
         setDefaultValues();
         getPlayerImage();
     }
+    
+    public void pickUpObject(int i) {
+		if (i != 999) {
+			//delete from string object -> case chest (vid13)
+		}
+	}
+    
     public void setDefaultValues(){
         x = 288;
         y = 690;
@@ -37,7 +47,7 @@ public class Player extends Entity{
         try{
             up1 = ImageIO.read(getClass().getResourceAsStream("/res/HiepSiNhoAttackFinal1.png"));
             up2 = ImageIO.read(getClass().getResourceAsStream("/res/HiepSiNhoAttackFinal1.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/res/HiepSiNhoAttackFinal1.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/res/HiepSiNho3.0.png"));
             down2 = ImageIO.read(getClass().getResourceAsStream("/res/HiepSiNhoAttackFinal1.png"));
             left1 = ImageIO.read(getClass().getResourceAsStream("/res/HiepSiNhoAttackFinal1.png"));
             left2 = ImageIO.read(getClass().getResourceAsStream("/res/HiepSiNhoAttackFinal1.png"));
