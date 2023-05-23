@@ -1,5 +1,6 @@
 package main;
 
+
 import entity.Entity;
 
 public class CollisionChecker {
@@ -39,5 +40,4 @@ public class CollisionChecker {
             break;
         }
     }
-    //HIEPSINHO
 }
