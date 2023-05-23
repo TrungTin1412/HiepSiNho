@@ -1,4 +1,4 @@
-package tile;
+	package tile;
 
 
 import java.io.BufferedReader;
@@ -46,6 +46,15 @@ public class TileManager {
 			tile[2] = new Tile();
 			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/res/water.png"));
 			tile[2].collision = true;
+
+			tile[3] = new Tile();
+			tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/heart blank.png"));
+
+			tile[4] = new Tile();
+			tile[4].image = ImageIO.read(getClass().getResourceAsStream("/res/heart full.png"));
+
+			tile[5] = new Tile();
+			tile[5].image = ImageIO.read(getClass().getResourceAsStream("/res/heart half.png"));
 			
 			
 		}catch(IOException e) {
@@ -106,6 +115,8 @@ public class TileManager {
 				y += gp.tileSize;
 			}
 		}
-		
+		g2.drawImage(tile[3].image, 0, 0, gp.tileSize(), gp.tileSize(), null);
+		g2.drawImage(tile[4].image, 0, 0, gp.tileSize(), gp.tileSize(), null);
+		g2.drawImage(tile[5].image, 0, 0, gp.tileSize(), gp.tileSize(), null);
 	}
 }

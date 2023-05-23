@@ -12,6 +12,7 @@ public class UI {
 	Font arial_40, 
 	arial_80B;
 // 	BufferedImage keyImage;
+	BufferedImage heart_blank, heart_full, heart_half;
 	public int commandNum = 0;
 	public int titleScreenState = 0;
 	
@@ -24,6 +25,10 @@ public class UI {
 		arial_80B = new Font("Arial", Font.BOLD, 80);
 //   	OJB_Key key = new OJB_Key(gp);
 //		keyImage = key.image;
+		SuperObject heart = new OBJ_Heart(gp);
+		heart_blank = heart.image;
+		heart_full = heart.image2;
+		heart_half = heart.image3;
 	}
 	
 	public void draw(Graphics2D g2) {
@@ -41,16 +46,48 @@ public class UI {
 		
 		//PAUSE STATE
 		  if(gp.gameState == gp.playState) {
-			  // Do playState later 
+			  drawPlayerLife();
 		  } 
-		  if(gp.gameState == gp.pauseState) { 
+		  if(gp.gameState == gp.pauseState) {
+			  drawPlayerLife();
 			  drawPauseScreen(); 
 		  }
+		if(gp.gameState == gp.dialogueState) {
+			drawPlayerLife();
+			drawDialogueScreen();
+		}
 		 
 	}
-	
+	public void drawPlayerLife() {
+		gp.player.life = 6;
+		int x = gp.tileSize/2;
+		int y = gp.tileSize/2;
+		int i = 0;
+		//DRAW BLANK HEART
+		while (i < gp.player.maxLife/2) {
+			g2.drawImage(heart_blank, x, y, null);
+			i++;
+			x += gp.tileSize;
+		}
+		// RESET
+		x = gp.tileSize/2;
+		y = gp.tileSize/2;
+		i = 0;
+		//DRAW CURRENT LIFE
+		while (i < gp.player.life) {
+			g2.drawImage(heart_half, x, y, null);
+			i++;
+			if(i < gp.player.life) {
+				g2.drawImage(heart_full, x, y, null);
+			}
+			i++;
+			x += gp.tileSize;
+		}
+	}
 
-	  public void drawTitleScreen() {
+
+
+	public void drawTitleScreen() {
 		  
 		  if(titleScreenState == 0) {
 			  g2.setColor(new Color(70, 120, 80)); 

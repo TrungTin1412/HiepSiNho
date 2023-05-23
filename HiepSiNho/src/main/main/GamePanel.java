@@ -40,6 +40,9 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     public CollisionChecker cChecker = new CollisionChecker(this);
     Player player = new Player(this,keyH);
+    public AssetSetter aSetter = new AssetSetter(this);
+    public Entity monster[] = new Entity[20];
+    public SuperObject obj[] = new SuperObject[10];
     
     
     
@@ -58,6 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
     
     public void setupGame() {
+        aSetter.setMonster();
     	//playMusic(0);
     	gameState = titleState;
     }
@@ -99,7 +103,17 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
 		
 		  if(gameState == playState) { 
-			  player.update(); 
+			  player.update();
+              for(int i = 0; i < monster.length; i++) {
+                  if(monster[i] != null) {
+                      if(monster[i].alive == true && monster[i].dying == false) {
+                          monster[i].update();
+                      }
+                      if(monster[i].alive == true) {
+                          monster[i] = null;
+                      }
+                  }
+              }
 		  } 
 		  if(gameState == pauseState) {
 		  //nothing
@@ -120,6 +134,12 @@ public class GamePanel extends JPanel implements Runnable {
         else {
             //TILE
             tileM.draw(g2);
+            entityList.add(player);
+            for(int i = 0; i < monster.length; i++) {
+                if(monster[i] != null) {
+                    entityList.add(monster[i]);
+                }
+            }
             //PLAYER
             player.draw(g2);
             //UI

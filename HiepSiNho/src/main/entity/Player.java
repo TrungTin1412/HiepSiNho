@@ -42,6 +42,9 @@ public class Player extends Entity{
         y = 690;
         speed = 40;
         direction = "up";
+
+        maxLife = 6;
+        life = maxLife;
     }
     public void getPlayerImage(){
         try{
@@ -73,6 +76,9 @@ public class Player extends Entity{
             collisionOn = false;
             gp.cChecker.checkTile(this);
 
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            contactMonster(monsterIndex);
+
             if (collisionOn == false){
                 switch(direction){
                     case "up":
@@ -99,6 +105,36 @@ public class Player extends Entity{
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+        }
+        if(invincible == true) {
+            invincibleCounter++;
+            if(invincibleCounter > 60) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
+    }
+    public void contactMonster(int i) {
+        if(i != 999)  {
+            if(invincible == false) {
+                life -= 1;
+                invincible = true;
+            }
+        }
+    }
+    public void damgeMonster(int i) {
+        if(i != 999) {
+            if(gp.monster[i].invincible == false) {
+
+                gp.playerSE(5);
+                gp.monster[i].life -= 1;
+                gp.monster[i].invincible = true;
+                gp.monster[i].damageReaction();
+
+                if(gp.monster[i].life <= 0) {
+                    gp.monster[i].dying = true;
+                }
             }
         }
     }
