@@ -1,9 +1,10 @@
 package monster;
 
-import Entity.Entity;
+import entity.Entity;
 import main.GamePanel;
 
 import java.util.Random;
+
 
 public class Monster extends Entity {
     public Monster(GamePanel gp) {
@@ -14,7 +15,6 @@ public class Monster extends Entity {
         speed = 1;
         maxLife = 4;
         life = maxLife;
-
         solidArea.x = 3;
         solidArea.y = 1;
         solidArea.width = 42;
@@ -53,5 +53,9 @@ public class Monster extends Entity {
              }
              actionLockCounter = 0;
         }
+    }
+    public void damageReaction() {
+        actionLockCounter = 0;
+        direction = gp.player.direction;
     }
 }

@@ -21,7 +21,6 @@ public class Entity {
     public boolean invincible = false;
     public int invincibleCounter = 0;
     public BufferedImage image, image2, image3;
-    public String name;
     public boolean collisionOn;
     public int type;
     public boolean alive = true;
