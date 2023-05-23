@@ -7,5 +7,10 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="main/main"/>
+	<classpathentry kind="src" path="main/entity"/>
+	<classpathentry kind="src" path="main/object"/>
+	<classpathentry kind="src" path="main/tile"/>
+	<classpathentry kind="src" path="main/res"/>
+	<classpathentry excluding="main/|entity/|object/|tile/|res/" kind="src" path="main"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
