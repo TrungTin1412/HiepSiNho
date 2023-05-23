@@ -58,7 +58,7 @@ public class UI {
 			  gp.screenHeight);
 			  
 			  //TITLE NAME 
-			  g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F)); 
+			  g2.setFont(g2.getFont().deriveFont(Font.BOLD, 80F)); 
 			  String text = "Hiệp Sĩ Nhỏ"; 
 			  int x = getXforCenteredText(text); 
 			  int y = gp.tileSize * 5;
@@ -73,12 +73,12 @@ public class UI {
 			  
 			  
 			  //HIỆP SĨ NHỎ IMAGE 
-			  x = gp.screenWidth / 2 - (gp.tileSize * 3) / 2; 
+			  x = gp.screenWidth / 2 - (gp.tileSize * 2) / 2; 
 			  y += gp.tileSize * 2; 
-			  g2.drawImage(gp.player.down1, x, y, gp.tileSize * 3,gp.tileSize * 3, null);
+			  g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2,gp.tileSize * 2, null);
 			  
 			  //MENU GAME 
-			  g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+			  g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
 			  
 			  text = "START GAME"; 
 			  x = getXforCenteredText(text); 
