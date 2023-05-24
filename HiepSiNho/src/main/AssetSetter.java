@@ -15,11 +15,11 @@ public class AssetSetter {
     }
     public void setMonster() {
         gp.monster[0] = new Monster(gp);
-        gp.monster[0].worldX = gp.tileSize*23;
-        gp.monster[0].worldY = gp.tileSize*36;
+        gp.monster[0].x = gp.tileSize*23;
+        gp.monster[0].y = gp.tileSize*36;
 
         gp.monster[1] = new Monster(gp);
-        gp.monster[1].worldX = gp.tileSize*23;
-        gp.monster[1].worldY = gp.tileSize*36;
+        gp.monster[1].x = gp.tileSize*23;
+        gp.monster[1].y = gp.tileSize*36;
     }
 }

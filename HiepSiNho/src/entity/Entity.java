@@ -1,5 +1,7 @@
 package entity;
 
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -7,7 +9,7 @@ import main.GamePanel;
 
 public class Entity {
 	
-	GamePanel gp;
+	public GamePanel gp;
 	
 	public int x, y;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
@@ -49,7 +51,9 @@ public class Entity {
     
     public Entity(GamePanel gp) {
     	this.gp = gp;
+
 	}
+    
     public void damageReaction() {}
     public void update() {
         setAction();
@@ -58,8 +62,8 @@ public class Entity {
     }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
-        int screenX = worldX - gp.player.worldX + gp.player.screenX;
-        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+        int screenX = x - gp.player.x + gp.player.x;
+        int screenY = y - gp.player.y + gp.player.y;
 
         if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
                 worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&

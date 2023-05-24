@@ -3,7 +3,9 @@ package main;
 
 import javax.swing.JPanel;
 
+import entity.Entity;
 import entity.Player;
+import object.SuperObject;
 import tile.TileManager;
 
 import java.awt.Color; 
@@ -39,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     Thread gameThread;
     public CollisionChecker cChecker = new CollisionChecker(this);
-    Player player = new Player(this,keyH);
+    public Player player = new Player(this,keyH);
     public AssetSetter aSetter = new AssetSetter(this);
     public Entity monster[] = new Entity[20];
     public SuperObject obj[] = new SuperObject[10];

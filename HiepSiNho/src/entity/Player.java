@@ -127,7 +127,7 @@ public class Player extends Entity{
         if(i != 999) {
             if(gp.monster[i].invincible == false) {
 
-                gp.playerSE(5);
+                // gp.playerSE(5);
                 gp.monster[i].life -= 1;
                 gp.monster[i].invincible = true;
                 gp.monster[i].damageReaction();
