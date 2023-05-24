@@ -114,8 +114,8 @@ public class TileManager {
 				y += gp.tileSize;
 			}
 		}
-		g2.drawImage(tile[3].image, 0, 0, gp.tileSize(), gp.tileSize(), null);
-		g2.drawImage(tile[4].image, 0, 0, gp.tileSize(), gp.tileSize(), null);
-		g2.drawImage(tile[5].image, 0, 0, gp.tileSize(), gp.tileSize(), null);
+		g2.drawImage(tile[3].image, 0, 0, gp.tileSize, gp.tileSize, null);
+		g2.drawImage(tile[4].image, 0, 0, gp.tileSize, gp.tileSize, null);
+		g2.drawImage(tile[5].image, 0, 0, gp.tileSize, gp.tileSize, null);
 	}
 }

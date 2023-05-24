@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -53,7 +54,7 @@ public class Entity {
     	this.gp = gp;
 
 	}
-    
+    public void setAction(){}
     public void damageReaction() {}
     public void update() {
         setAction();
@@ -65,12 +66,12 @@ public class Entity {
         int screenX = x - gp.player.x + gp.player.x;
         int screenY = y - gp.player.y + gp.player.y;
 
-        if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-                worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-                worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+        if(x + gp.tileSize > gp.player.x - gp.player.x &&
+                x - gp.tileSize < gp.player.x + gp.player.x &&
+                y + gp.tileSize > gp.player.y - gp.player.y &&
+                y - gp.tileSize < gp.player.y + gp.player.y) {
             if (type == 2 && hpBarOn == true) {
-                double oneScale = ( double).gp.tileSize / maxLife;
+                double oneScale = gp.tileSize / maxLife;
                 double hpBarValue = oneScale * life;
 
                 g2.setColor(new Color(35, 35, 35));

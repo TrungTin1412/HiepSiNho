@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import object.OBJ_Heart;
 import object.SuperObject;
 
 public class UI {
@@ -29,7 +30,7 @@ public class UI {
 		arial_80B = new Font("Arial", Font.BOLD, 80);
 //   	OJB_Key key = new OJB_Key(gp);
 //		keyImage = key.image;
-		SuperObject heart = new OBJ_Heart(gp);
+		SuperObject heart = new OBJ_Heart();
 		heart_blank = heart.image;
 		heart_full = heart.image2;
 		heart_half = heart.image3;

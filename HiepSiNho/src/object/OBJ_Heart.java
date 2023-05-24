@@ -24,6 +24,7 @@ public class OBJ_Heart extends SuperObject {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return image;
         }
     }
 }

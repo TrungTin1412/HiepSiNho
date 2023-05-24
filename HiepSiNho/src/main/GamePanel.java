@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics; 
 import java.awt.Graphics2D;
+import java.util.ArrayList;
   
 public class GamePanel extends JPanel implements Runnable { 
 	private static final long serialVersionUID = 1L;
@@ -40,11 +41,14 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler(this); 
     public UI ui = new UI(this);
     Thread gameThread;
+
     public CollisionChecker cChecker = new CollisionChecker(this);
     public Player player = new Player(this,keyH);
     public AssetSetter aSetter = new AssetSetter(this);
     public Entity monster[] = new Entity[20];
     public SuperObject obj[] = new SuperObject[10];
+    ArrayList<Entity>entityList = new ArrayList<>();
+    
     
     
     
