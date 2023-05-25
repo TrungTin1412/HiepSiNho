@@ -32,34 +32,36 @@ public class TileManager {
 	
 	public void getTileImage() {
 		
-		try {
-	
-			tile[0] = new Tile();
-			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/res/grass.png"));
+			setup(0, "grass", false);
 			
-			tile[1] = new Tile();
-			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/wall.png"));
-			tile[1].collision = true;
-			
-			tile[2] = new Tile();
-			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/res/water.png"));
-			tile[2].collision = true;
+			setup(1, "wall", true);
 
-			tile[3] = new Tile();
-			tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/heart blank.png"));
+			setup(2, "water", true);
 
-			tile[4] = new Tile();
-			tile[4].image = ImageIO.read(getClass().getResourceAsStream("/res/heart full.png"));
+			// tile[3] = new Tile();
+			// tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/heart blank.png"));
 
-			tile[5] = new Tile();
-			tile[5].image = ImageIO.read(getClass().getResourceAsStream("/res/heart half.png"));
+			// tile[4] = new Tile();
+			// tile[4].image = ImageIO.read(getClass().getResourceAsStream("/res/heart full.png"));
+
+			// tile[5] = new Tile();
+			// tile[5].image = ImageIO.read(getClass().getResourceAsStream("/res/heart half.png"));
 			
 			
-		}catch(IOException e) {
+	}
+
+	public void setup(int index, String imageName, boolean collision){
+		UtilityTool uTool = new UtilityTool();
+		try{
+			tile[index] = new Tile();
+			tile[index].image = ImageIO.read(getClass().getResourceAsStream("/res/"+imageName+".png"));
+			tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
+			tile[index].collision = collision;
+
+		}catch(IOException e){
 			e.printStackTrace();
 		}
 	}
-
 	
 
 	public void loadMap(String filePath) {
@@ -105,7 +107,7 @@ public class TileManager {
 			
 			int tileNum = mapTileNum[col][row];
 			
-			g2.drawImage(tile[tileNum].image, x, y, gp.tileSize,gp.tileSize, null);
+			g2.drawImage(tile[tileNum].image, x, y, null);
 			col++;
 			x += gp.tileSize;
 			
@@ -116,8 +118,8 @@ public class TileManager {
 				y += gp.tileSize;
 			}
 		}
-		g2.drawImage(tile[3].image, 0, 0, gp.tileSize, gp.tileSize, null);
-		g2.drawImage(tile[4].image, 0, 0, gp.tileSize, gp.tileSize, null);
-		g2.drawImage(tile[5].image, 0, 0, gp.tileSize, gp.tileSize, null);
+		// g2.drawImage(tile[3].image, 0, 0, gp.tileSize, gp.tileSize, null);
+		// g2.drawImage(tile[4].image, 0, 0, gp.tileSize, gp.tileSize, null);
+		// g2.drawImage(tile[5].image, 0, 0, gp.tileSize, gp.tileSize, null);
 	}
 }

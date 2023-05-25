@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
 
 public class Player extends Entity{
 	
@@ -43,25 +44,34 @@ public class Player extends Entity{
         y = 690;
         speed = 40;
         direction = "up";
-
+        //PLAYER STATUS
         maxLife = 6;
         life = maxLife;
     }
     public void getPlayerImage(){
-        try{
-            up1 = ImageIO.read(getClass().getResourceAsStream("/res/HiepSiNhoAttackFinal1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/res/HiepSiNhoAttackFinal1.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/res/HiepSiNho3.0.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/res/HiepSiNhoAttackFinal1.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/res/HiepSiNhoAttackFinal1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/res/HiepSiNhoAttackFinal1.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/res/HiepSiNhoAttackFinal1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/res/HiepSiNhoAttackFinal1.png"));
+        up1 = setup("HiepSiNhoAttackFinal1");
+        up2 = setup("HiepSiNhoAttackFinal1");
+        down1 = setup("HiepSiNho3.0");
+        down2 = setup("HiepSiNhoAttackFinal1");
+        left1 = setup("HiepSiNhoAttackFinal1");
+        left2 = setup("HiepSiNhoAttackFinal1");
+        right1 = setup("HiepSiNhoAttackFinal1");
+        right2 = setup("HiepSiNhoAttackFinal1");
+    }
 
-        }catch (IOException e){
+    public BufferedImage setup(String imageName){
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
+        try{
+            image = ImageIO.read(getClass().getResourceAsStream("/res/"+ imageName +".png"));
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        }catch(IOException e){
             e.printStackTrace();
         }
+        return image;
     }
+
     
     public void update(){
         if (keyH.upPressed == true||keyH.downPressed == true||keyH.leftPressed == true|| keyH.rightPressed == true){
@@ -77,7 +87,7 @@ public class Player extends Entity{
             collisionOn = false;
             gp.cChecker.checkTile(this);
 
-            //CHECK MÓNTERS COLLISION
+            //CHECK M0NTERS COLLISION
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             contactMonster(monsterIndex);
 
@@ -182,7 +192,7 @@ public class Player extends Entity{
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
             
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, x, y, null);
         //Reset Alpha
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1F));
 

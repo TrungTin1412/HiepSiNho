@@ -1,6 +1,5 @@
 package monster;
 
-import java.io.IOException;
 import java.util.Random;
 
 
@@ -8,7 +7,7 @@ import entity.Entity;
 import main.GamePanel;
 
 public class Monster extends Entity {
-    public Monster(GamePanel gp) throws IOException {
+    public Monster(GamePanel gp) {
         super(gp);
 
         type = 2;
@@ -22,16 +21,19 @@ public class Monster extends Entity {
         solidArea.height = 30;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-
-        up1 = setup("/res/ooze left1");
-        up2 = setup("/res/ooze left 2");
-        down1 = setup("/res/ooze right1");
-        down2 = setup("/res/ooze right2");
-        left1 = setup("/res/ooze left1");
-        left2 = setup("/res/ooze left2");
-        right1 = setup("/res/ooze right1");
-        right2 = setup("/res/ooze right2");
+        getImage();
     }
+    public void getImage(){
+        up1 = setup("/res/ooze_left1");
+        up2 = setup("/res/ooze_left2");
+        down1 = setup("/res/ooze_right1");
+        down2 = setup("/res/ooze_right2");
+        left1 = setup("/res/ooze_left1");
+        left2 = setup("/res/ooze_left2");
+        right1 = setup("/res/ooze_right1");
+        right2 = setup("/res/ooze_right2");
+    }
+        
     public void setAction() {
         actionLockCounter++;
         if (actionLockCounter == 120) {

@@ -14,7 +14,6 @@ public class UI {
 	Graphics2D g2;
 	Font arial_40, 
 	arial_80B;
-// 	BufferedImage keyImage;
 	BufferedImage heart_blank, heart_full, heart_half;
 	public int commandNum = 0;
 	public int titleScreenState = 0;
@@ -26,8 +25,7 @@ public class UI {
 		this.gp = gp;
 		arial_40 = new Font("Arial", Font.PLAIN, 40);
 		arial_80B = new Font("Arial", Font.BOLD, 80);
-//   	OJB_Key key = new OJB_Key(gp);
-//		keyImage = key.image;
+
 		Entity heart = new OBJ_Heart(gp);
 		heart_blank = heart.image;
 		heart_full = heart.image2;
@@ -47,26 +45,23 @@ public class UI {
 		}
 		 
 		
-		//PAUSE STATE
+		//PLAY STATE
 		  if(gp.gameState == gp.playState) {
 			  drawPlayerLife();
 		  } 
+		//PAUSE STATE
 		  if(gp.gameState == gp.pauseState) {
 			  drawPlayerLife();
 			  drawPauseScreen(); 
 		  }
-		 //if(gp.gameState == gp.dialogueState) {
-		 	//drawPlayerLife();
-		 	//drawDialogueScreen();
-		 //}
 		 
 	}
 	public void drawPlayerLife() {
 		gp.player.life = 6;
-		int x = gp.tileSize/2;
-		int y = gp.tileSize/2;
+		int x = gp.tileSize/2;	//PLAYER LIFE IMAGE LOCATION
+		int y = gp.tileSize/2;	//PLAYER LIFE IMAGE LOCATION
 		int i = 0;
-		//DRAW BLANK HEART
+		//DRAW MAX LIFE
 		while (i < gp.player.maxLife/2) {
 			g2.drawImage(heart_blank, x, y, null);
 			i++;
@@ -95,8 +90,7 @@ public class UI {
 		  if(titleScreenState == 0) {
 	  
 		  g2.setColor(new Color(70, 120, 80)); 
-		  g2.fillRect(0, 0, gp.screenWidth,
-		  gp.screenHeight);
+		  g2.fillRect(0, 0, gp.screenWidth,gp.screenHeight);
 		  
 		  //TITLE NAME 
 		  g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F)); 

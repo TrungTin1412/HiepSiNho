@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -66,7 +65,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyH);
         this.setFocusable(true); 
     }
-    public void setupGame() throws IOException {
+    public void setupGame() {
         aSetter.setMonster();
     	//playMusic(0);
     	gameState = titleState;
@@ -108,22 +107,20 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
 		
-		  if(gameState == playState) { 
-			  player.update();
-              for(int i = 0; i < monster.length; i++) {
-                  if(monster[i] != null) {
-                      if(monster[i].alive == true && monster[i].dying == false) {
-                          monster[i].update();
-                      }
-                      if(monster[i].alive == true) {
-                          monster[i] = null;
-                      }
-                  }
-              }
-		  } 
-		  if(gameState == pauseState) {
-		  //nothing
-		  }
+		if(gameState == playState) { 
+            //PLAYER
+			player.update();
+
+            //MONSTER
+            for(int i = 0; i < monster.length; i++){
+                if(monster[i] != null){
+                    monster[i].update();
+                }
+            }
+		} 
+		if(gameState == pauseState) {
+		//nothing
+		}
 		  
     } 
      
@@ -140,6 +137,7 @@ public class GamePanel extends JPanel implements Runnable {
         else {
             //TILE
             tileM.draw(g2);
+
             //ADD ENTITIES TO THE LIST
             entityList.add(player);
             for(int i = 0; i < monster.length; i++) {

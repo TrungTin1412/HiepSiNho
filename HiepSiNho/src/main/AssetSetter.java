@@ -1,6 +1,5 @@
 package main;
 
-import java.io.IOException;
 
 import monster.Monster;
 import object.OBJ_Heart;
@@ -15,13 +14,14 @@ public class AssetSetter {
         gp.obj[0].x = 23 * gp.tileSize;
         gp.obj[0].x = 7 * gp.tileSize;
     }
-    public void setMonster() throws IOException {
+    //MONSTER FIRST LOCATION
+    public void setMonster(){
         gp.monster[0] = new Monster(gp);
-        gp.monster[0].x = gp.tileSize*23;
-        gp.monster[0].y = gp.tileSize*36;
+        gp.monster[0].x = gp.tileSize*3;
+        gp.monster[0].y = gp.tileSize*5;
 
         gp.monster[1] = new Monster(gp);
-        gp.monster[1].x = gp.tileSize*23;
-        gp.monster[1].y = gp.tileSize*36;
+        gp.monster[1].x = gp.tileSize*6;
+        gp.monster[1].y = gp.tileSize*8;
     }
 }
