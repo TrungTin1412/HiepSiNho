@@ -1,14 +1,13 @@
 package tile;
 
-import main.GamePanel;
-import java.io.BufferedReader;
 import java.awt.Graphics2D;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import javax.imageio.ImageIO;
-
+import main.GamePanel;
+import main.UtilityTool;
 
 
 
@@ -60,6 +59,9 @@ public class TileManager {
 			e.printStackTrace();
 		}
 	}
+
+	
+
 	public void loadMap(String filePath) {
 		
 		

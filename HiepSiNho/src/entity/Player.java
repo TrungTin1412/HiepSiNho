@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.AlphaComposite;
 // import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -76,6 +77,7 @@ public class Player extends Entity{
             collisionOn = false;
             gp.cChecker.checkTile(this);
 
+            //CHECK MÓNTERS COLLISION
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             contactMonster(monsterIndex);
 
@@ -176,6 +178,13 @@ public class Player extends Entity{
             }
             break;
         }
+        if(invincible == true){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+            
+        }
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        //Reset Alpha
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1F));
+
     }
 }

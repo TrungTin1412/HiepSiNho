@@ -1,14 +1,12 @@
 package main;
 
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import entity.Entity;
 import object.OBJ_Heart;
-import object.SuperObject;
-
 public class UI {
 	
 	
@@ -30,7 +28,7 @@ public class UI {
 		arial_80B = new Font("Arial", Font.BOLD, 80);
 //   	OJB_Key key = new OJB_Key(gp);
 //		keyImage = key.image;
-		SuperObject heart = new OBJ_Heart();
+		Entity heart = new OBJ_Heart(gp);
 		heart_blank = heart.image;
 		heart_full = heart.image2;
 		heart_half = heart.image3;
@@ -57,10 +55,10 @@ public class UI {
 			  drawPlayerLife();
 			  drawPauseScreen(); 
 		  }
-		// if(gp.gameState == gp.dialogueState) {
-		// 	drawPlayerLife();
-		// 	drawDialogueScreen();
-		// }
+		 //if(gp.gameState == gp.dialogueState) {
+		 	//drawPlayerLife();
+		 	//drawDialogueScreen();
+		 //}
 		 
 	}
 	public void drawPlayerLife() {

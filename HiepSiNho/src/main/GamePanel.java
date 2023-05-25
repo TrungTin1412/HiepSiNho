@@ -1,18 +1,19 @@
 package main;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.swing.JPanel;
 
 import entity.Entity;
 import entity.Player;
-import object.SuperObject;
 import tile.TileManager;
-
-import java.awt.Color; 
-import java.awt.Dimension;
-import java.awt.Graphics; 
-import java.awt.Graphics2D;
-import java.util.ArrayList;
   
 public class GamePanel extends JPanel implements Runnable { 
 	private static final long serialVersionUID = 1L;
@@ -46,7 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this,keyH);
     public AssetSetter aSetter = new AssetSetter(this);
     public Entity monster[] = new Entity[20];
-    public SuperObject obj[] = new SuperObject[10];
+    public Entity obj[] = new Entity[10];
     ArrayList<Entity>entityList = new ArrayList<>();
     
     
@@ -65,8 +66,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyH);
         this.setFocusable(true); 
     }
-    
-    public void setupGame() {
+    public void setupGame() throws IOException {
         aSetter.setMonster();
     	//playMusic(0);
     	gameState = titleState;
@@ -140,17 +140,41 @@ public class GamePanel extends JPanel implements Runnable {
         else {
             //TILE
             tileM.draw(g2);
+            //ADD ENTITIES TO THE LIST
             entityList.add(player);
             for(int i = 0; i < monster.length; i++) {
                 if(monster[i] != null) {
                     entityList.add(monster[i]);
                 }
             }
+            for(int i = 0; i < obj.length; i ++){
+                if(obj[i] != null){
+                    entityList.add(obj[i]);
+                }
+            }
+            //SORT
+            Collections.sort(entityList, new Comparator<Entity>() {
+
+                @Override
+                public int compare(Entity e1, Entity e2) {
+                    int result = Integer.compare(e1.y, e2.y);
+                    return 0;
+                }
+                
+            });
+            //DRAW ENTITIES
+            for(int i = 0; i < entityList.size(); i++){
+                entityList.get(i).draw(g2);
+            }
+            //EMPTY ENTITY LIST 
+            for(int i = 0; i < entityList.size(); i++){
+                entityList.remove(i);
+            }
             //PLAYER
             player.draw(g2);
             //UI
             ui.draw(g2);
         }
-        g2.dispose(); }
-
+        g2.dispose();
+    }
 }
