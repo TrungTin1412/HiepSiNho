@@ -3,8 +3,8 @@ package object;
 import entity.Entity;
 import main.GamePanel;
 
-
 public class OBJ_Heart extends Entity {
+
     public OBJ_Heart(GamePanel gp){
         super(gp);
         name = "Heart";
@@ -12,5 +12,4 @@ public class OBJ_Heart extends Entity {
         image2 = setup("/res/heart full");
         image3 = setup("/res/heart half");
     }
-    
 }
