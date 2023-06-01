@@ -18,7 +18,7 @@ public class Entity {
 	
 	public int x, y;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    public String direction = "down";            //FIRST DIRECTION!!!
+    public String direction = "down"; // FIRST DIRECTION
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
@@ -29,12 +29,12 @@ public class Entity {
     public int invincibleCounter = 0;
     public BufferedImage image, image2, image3;
     public boolean collisionOn;
-    public int type;
+    public int type;// player = 0, monster = 1, boss = 2;
     public boolean alive = true;
     public boolean dying = false;
     int dyingCounter = 0;
-    boolean hpBarOn = false;
-    int hpBarCounter = 0;
+    protected boolean hpBarOn = false;
+    protected int hpBarCounter = 0;
     
     
     //CHARACTER ATTRIBUTES
@@ -45,36 +45,31 @@ public class Entity {
     public Projectile projectile;
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
     public Entity(GamePanel gp) {
     	this.gp = gp;
 
 	}
-    public void setAction(){}
+
     public void damageReaction() {}
     public void update() {
-        setAction();
         collisionOn = false;
-        gp.cChecker.checkEntity(this, gp.monster);
+        gp.cChecker.checkTile(this);
+
+        if (collisionOn == false){
+            y += speed;
+        }
     }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         int screenX = x - gp.player.x + gp.player.x;
         int screenY = y - gp.player.y + gp.player.y;
 
-        if(x + gp.tileSize > gp.player.x - gp.player.x &&
-                x - gp.tileSize < gp.player.x + gp.player.x &&
-                y + gp.tileSize > gp.player.y - gp.player.y &&
-                y - gp.tileSize < gp.player.y + gp.player.y) {
-            if (type == 2 && hpBarOn == true) {
+        // if(x + gp.tileSize > gp.player.x - gp.player.x &&
+        //         x - gp.tileSize < gp.player.x + gp.player.x &&
+        //         y + gp.tileSize > gp.player.y - gp.player.y &&
+        //         y - gp.tileSize < gp.player.y + gp.player.y) {
+            //MONSTER HEALTH BAR
+            if (type == 1 && hpBarOn == true) {
                 double oneScale = gp.tileSize / maxLife;
                 double hpBarValue = oneScale * life;
 
@@ -96,14 +91,10 @@ public class Entity {
                 hpBarCounter = 0;
                 changeAlpha(g2, 0.4F);
             }
-            if(dying == true) {
-                dyingAnimation(g2);
-            }
             g2.drawImage(image, screenX, screenX, gp.tileSize, gp.tileSize, null);
 
             changeAlpha(g2, 1F);
         }
-    }
     public BufferedImage setup(String imagePath){
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
@@ -116,22 +107,7 @@ public class Entity {
         }
         return image;
     }
-    public void dyingAnimation(Graphics2D g2) {
-        dyingCounter++;
-        int i = 5;
-        if(dyingCounter <= i) {changeAlpha(g2, 0f);}
-        if(dyingCounter > i && dyingCounter <= i*2) {changeAlpha(g2, 1f);}
-        if(dyingCounter > i*2 && dyingCounter <= i*3) {changeAlpha(g2, 0f);}
-        if(dyingCounter > i*3 && dyingCounter <= i*4) {changeAlpha(g2, 1f);}
-        if(dyingCounter > i*4 && dyingCounter <= i*5) {changeAlpha(g2, 0f);}
-        if(dyingCounter > i*5 && dyingCounter <= i*6) {changeAlpha(g2, 1f);}
-        if(dyingCounter > i*6 && dyingCounter <= i*7) {changeAlpha(g2, 0f);}
-        if(dyingCounter > i*7 && dyingCounter <= i*8) {changeAlpha(g2, 1f);}
-        if(dyingCounter > i*8) {
-            dying = false;
-            alive = false;
-        }
-    }
+
     public void changeAlpha(Graphics2D g2, float alphaValue){
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
     }
