@@ -14,14 +14,16 @@ public class AssetSetter {
         gp.obj[0].x = 23 * gp.tileSize;
         gp.obj[0].x = 7 * gp.tileSize;
     }
-    //MONSTER FIRST LOCATION
     public void setMonster(){
-        gp.monster[0] = new Monster(gp);
-        gp.monster[0].x = gp.tileSize*3;
-        gp.monster[0].y = gp.tileSize*5;
+        for(int i = 0; i < 3; i++) {
+            gp.monster[i] = new Monster(gp);
+            gp.monster[i].x = 20;
+            gp.monster[i].y = 50;
+        }
 
-        gp.monster[1] = new Monster(gp);
-        gp.monster[1].x = gp.tileSize*6;
-        gp.monster[1].y = gp.tileSize*8;
+
+        // gp.monster[1] = new Monster(gp);
+        // gp.monster[1].x = gp.tileSize ;
+        // gp.monster[1].y = gp.tileSize;
     }
 }
