@@ -25,7 +25,6 @@ public class UI {
 		this.gp = gp;
 		arial_40 = new Font("Arial", Font.PLAIN, 40);
 		arial_80B = new Font("Arial", Font.BOLD, 80);
-
 		Entity heart = new OBJ_Heart(gp);
 		heart_blank = heart.image;
 		heart_full = heart.image2;
@@ -54,13 +53,59 @@ public class UI {
 			  drawPlayerLife();
 			  drawPauseScreen(); 
 		  }
+		//GAME OVER STATE
+		  if(gp.gameState == gp.gameOverState){
+				drawGameOverScreen();
+		  }
 		 
 	}
+
+    public void drawGameOverScreen(){
+
+		g2.setColor(new Color(0,0,0,150));
+		g2.fillRect(0,0, gp.screenWidth,gp.screenHeight);
+
+		int x;
+		int y;
+		String text;
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110f));
+		text ="Game Over";
+		//SHADOW
+		g2.setColor(Color.black);
+		x = getXforCenteredText(text);
+		y = gp.tileSize * 4;
+		g2.drawString(text, x, y);
+		//MAIN
+		g2.setColor(Color.white);
+		g2.drawString(text, x - 4, y - 4);
+
+		//RETRY
+		g2.setFont(g2.getFont().deriveFont(50f));
+		text = "Retry";
+		x = getXforCenteredText(text);
+		y += gp.tileSize;
+		g2.drawString(text, x, y);
+		if(commandNum == 0){
+			g2.drawString(">", x - 40, y);
+		}
+		
+		//BACK TO TITLE SCREEN
+		text = "Quit";
+		x = getXforCenteredText(text);
+		y += 55;
+		g2.drawString(text, x, y);
+		if(commandNum == 1){
+			g2.drawString(">", x - 40, y);
+		}
+
+	}
+
 	public void drawPlayerLife() {
-		gp.player.life = 6;
-		int x = gp.tileSize/2;	//PLAYER LIFE IMAGE LOCATION
-		int y = gp.tileSize/2;	//PLAYER LIFE IMAGE LOCATION
+		// gp.player.life = 6;
+		int x = gp.tileSize/2; //PLAYER LIFE IMAGE LOCATION
+		int y = gp.tileSize/2; //PLAYER LIFE IMAGE LOCATION	
 		int i = 0;
+
 		//DRAW MAX LIFE
 		while (i < gp.player.maxLife/2) {
 			g2.drawImage(heart_blank, x, y, null);
@@ -90,7 +135,7 @@ public class UI {
 		  if(titleScreenState == 0) {
 	  
 		  g2.setColor(new Color(70, 120, 80)); 
-		  g2.fillRect(0, 0, gp.screenWidth,gp.screenHeight);
+		  g2.fillRect(0, 0, gp.screenWidth,gp.screenHeight);		 
 		  
 		  //TITLE NAME 
 		  g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F)); 
