@@ -24,6 +24,10 @@ public class CollisionChecker {
 
         case "left":
             entityLeftCol = (entityLeftX - entity.speed)/gp.tileSize;
+            if (entityLeftCol < 0 || entityLeftCol >= gp.tileM.mapTileNum.length || entityTopRow < 0 || entityTopRow >= gp.tileM.mapTileNum[0].length || entityBottomRow < 0 || entityBottomRow >= gp.tileM.mapTileNum[0].length) {
+                entity.collisionOn = true;
+                break;
+            } 
             tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
             tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
             if (gp.tileM.tile[tileNum1].collision == true||gp.tileM.tile[tileNum2].collision == true){
@@ -32,6 +36,10 @@ public class CollisionChecker {
             break;
         case "right":
             entityRightCol = (entityRightX + entity.speed)/gp.tileSize;
+            if (entityRightCol < 0 || entityRightCol >= gp.tileM.mapTileNum.length || entityTopRow < 0 || entityTopRow >= gp.tileM.mapTileNum[0].length || entityBottomRow < 0 || entityBottomRow >= gp.tileM.mapTileNum[0].length) {
+                entity.collisionOn = true;
+                break;
+            } 
             tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
             tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
             if (gp.tileM.tile[tileNum1].collision == true||gp.tileM.tile[tileNum2].collision == true){
@@ -57,13 +65,13 @@ public class CollisionChecker {
                 case "right": entity.solidArea.y -= entity.speed; break;
                 case "left": entity.solidArea.y -= entity.speed; break;
                 }
-
+                
                 if(entity.solidArea.intersects(target[i].solidArea)){
                     if(target[i] != entity){
                         entity.collisionOn = true;
                         index = i;
                     }
-            }
+                }
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
                 target[i].solidArea.x = target[i].solidAreaDefaultX;
