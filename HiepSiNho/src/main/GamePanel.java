@@ -7,11 +7,13 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
 import entity.Entity;
 import entity.Player;
+import monster.Monster;
 import tile.TileManager;
   
 public class GamePanel extends JPanel implements Runnable { 
@@ -46,10 +48,12 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this,keyH);
     public AssetSetter aSetter = new AssetSetter(this);
     public Entity monster[] = new Entity[20];
+    int monsterCount = 3;
     public Entity obj[] = new Entity[10];
     ArrayList<Entity>entityList = new ArrayList<>();
     
-    
+    public int actionLockCounter = 0;
+    Random random = new Random();
     
     
     // GAME STATE
@@ -57,6 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
+    public final int gameOverState = 3;
     
     public GamePanel() { 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); 
@@ -64,11 +69,29 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true); 
         this.addKeyListener(keyH);
         this.setFocusable(true); 
+
+        for (int i = 0; i < monsterCount; i++) {
+            monster[i] = new Monster(this);
+            monster[i].x = random.nextInt(371) + 100;
+            monster[i].y = random.nextInt(50);
+        }
     }
-    public void setupGame() {
+    public void setupGame(){
         aSetter.setMonster();
     	//playMusic(0);
     	gameState = titleState;
+    }
+    public void retry(){
+        player.setDefaultPositions();
+        player.restoreLifeAndMan();
+        aSetter.setMonster();
+
+    }
+    public void restart(){
+        player.setDefaultValues();
+        player.setDefaultPositions();
+        player.restoreLifeAndMan();
+        aSetter.setMonster();
     }
     
     public void startGameThread() { 
@@ -106,8 +129,18 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-		
-		if(gameState == playState) { 
+        if (actionLockCounter > 200) {
+            actionLockCounter = 0;
+            if (monsterCount < monster.length) {
+                monster[monsterCount] = new Monster(this);
+                monster[monsterCount].x = random.nextInt(371) + 100;
+                monster[monsterCount].y = 0;
+                monsterCount++;
+            }
+        }
+
+        actionLockCounter++;
+        if(gameState == playState) { 
             //PLAYER
 			player.update();
 
@@ -135,19 +168,21 @@ public class GamePanel extends JPanel implements Runnable {
         
         //OTHER
         else {
+
             //TILE
             tileM.draw(g2);
 
             //ADD ENTITIES TO THE LIST
             entityList.add(player);
-            for(int i = 0; i < monster.length; i++) {
-                if(monster[i] != null) {
-                    entityList.add(monster[i]);
-                }
-            }
+
             for(int i = 0; i < obj.length; i ++){
                 if(obj[i] != null){
                     entityList.add(obj[i]);
+                }
+            }
+            for(int i = 0; i < monster.length; i++) {
+                if(monster[i] != null) {
+                    entityList.add(monster[i]);
                 }
             }
             //SORT
@@ -169,7 +204,7 @@ public class GamePanel extends JPanel implements Runnable {
                 entityList.remove(i);
             }
             //PLAYER
-            player.draw(g2);
+            // player.draw(g2);
             //UI
             ui.draw(g2);
         }
