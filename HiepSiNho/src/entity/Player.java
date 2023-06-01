@@ -23,6 +23,8 @@ public class Player extends Entity{
         this.gp = gp;
         this.keyH = keyH;
 
+        life = 6;
+        maxLife = 6;
         solidArea = new Rectangle();
         solidArea.x = 0;
         solidArea.y = 0;
@@ -35,28 +37,36 @@ public class Player extends Entity{
     
     public void pickUpObject(int i) {
 		if (i != 999) {
-			//delete from string object -> case chest (vid13)
 		}
 	}
     
     public void setDefaultValues(){
         x = 288;
         y = 690;
-        speed = 40;
+        speed = 20;
         direction = "up";
-        //PLAYER STATUS
+
         maxLife = 6;
         life = maxLife;
+    }
+    public void setDefaultPositions(){
+        x = gp.tileSize * 13;
+        y = gp.tileSize * 21;
+        direction = "up";
+    }
+    public void restoreLifeAndMan(){
+        life = maxLife;
+        invincible = false;
     }
     public void getPlayerImage(){
         up1 = setup("HiepSiNhoAttackFinal1");
         up2 = setup("HiepSiNhoAttackFinal1");
         down1 = setup("HiepSiNho3.0");
         down2 = setup("HiepSiNhoAttackFinal1");
-        left1 = setup("HiepSiNhoAttackFinal1");
-        left2 = setup("HiepSiNhoAttackFinal1");
-        right1 = setup("HiepSiNhoAttackFinal1");
-        right2 = setup("HiepSiNhoAttackFinal1");
+        left1 = setup("HiepSiNhoAttackFinal3");
+        left2 = setup("HiepSiNhoAttackFinal3");
+        right1 = setup("HiepSiNhoAttackFinal2");
+        right2 = setup("HiepSiNhoAttackFinal2");
     }
 
     public BufferedImage setup(String imageName){
@@ -71,31 +81,27 @@ public class Player extends Entity{
         }
         return image;
     }
-
     
     public void update(){
-        if (keyH.upPressed == true||keyH.downPressed == true||keyH.leftPressed == true|| keyH.rightPressed == true){
-            if(keyH.upPressed == true){ 
-                direction = "up";
-            } else if(keyH.downPressed == true) {
-                direction = "down";
-            } else if(keyH.leftPressed == true) {
-                direction = "left";
-            } else if(keyH.rightPressed == true) {
-                direction = "right";
-            } 
+        int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+        contactMonster(monsterIndex);
+        if(keyH.leftPressed == true) {
+            direction = "left";
+        } else if(keyH.rightPressed == true) {
+            direction = "right";
+        }else{
+            direction = "up";
+        }
+        if (keyH.leftPressed == true|| keyH.rightPressed == true){
+
             collisionOn = false;
             gp.cChecker.checkTile(this);
 
-            //CHECK M0NTERS COLLISION
-            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            contactMonster(monsterIndex);
+            //CHECK MONSTER COLLISION
+
 
             if (collisionOn == false){
                 switch(direction){
-                    case "up":
-                        y -= speed; 
-                        break;
                     case "down":
                         y += speed; 
                         break;
@@ -126,20 +132,24 @@ public class Player extends Entity{
                 invincibleCounter = 0;
             }
         }
+        if(life <= 0){
+          gp.gameState = gp.gameOverState;  
+        }
     }
     public void contactMonster(int i) {
         if(i != 999)  {
-            if(invincible == false) {
-                life -= 1;
-                invincible = true;
-            }
+            // if(invincible == false) {
+            //     life -= 1;
+            //     invincible = true;
+            // }
+            gp.monster[i].dying = true;
         }
     }
     public void damgeMonster(int i) {
         if(i != 999) {
             if(gp.monster[i].invincible == false) {
 
-                // gp.playerSE(5);
+            // gp.playerSE(5);
                 gp.monster[i].life -= 1;
                 gp.monster[i].invincible = true;
                 gp.monster[i].damageReaction();
