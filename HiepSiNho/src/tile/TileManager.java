@@ -5,7 +5,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 import javax.imageio.ImageIO;
+
 import main.GamePanel;
 import main.UtilityTool;
 
@@ -32,11 +34,13 @@ public class TileManager {
 	
 	public void getTileImage() {
 		
+
 			setup(0, "grass", false);
-			
+
 			setup(1, "wall", true);
 
 			setup(2, "water", true);
+
 
 			// tile[3] = new Tile();
 			// tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/heart blank.png"));
@@ -47,22 +51,21 @@ public class TileManager {
 			// tile[5] = new Tile();
 			// tile[5].image = ImageIO.read(getClass().getResourceAsStream("/res/heart half.png"));
 			
-			
-	}
-
-	public void setup(int index, String imageName, boolean collision){
-		UtilityTool uTool = new UtilityTool();
-		try{
-			tile[index] = new Tile();
-			tile[index].image = ImageIO.read(getClass().getResourceAsStream("/res/"+imageName+".png"));
-			tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
-			tile[index].collision = collision;
-
-		}catch(IOException e){
-			e.printStackTrace();
-		}
-	}
 	
+	
+		}
+		public void setup(int index, String imageName, boolean collision){
+			UtilityTool uTool = new UtilityTool();
+			try{
+				tile[index] = new Tile();
+				tile[index].image = ImageIO.read(getClass().getResourceAsStream("/res/"+imageName+".png"));
+				tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
+				tile[index].collision = collision;
+	
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+		}
 
 	public void loadMap(String filePath) {
 		
